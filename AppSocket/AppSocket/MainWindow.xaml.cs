@@ -26,6 +26,9 @@ namespace AppSocket
     {
         Socket socket = null;
         DispatcherTimer timer = null;
+        Contatto ContattoAttuale;
+        List<Contatto> Rubrica = new List<Contatto>();
+
         public MainWindow()
         {
             //dovrei avere un thread che ascolta continuamente se arrivano dei nuovi messaggi
@@ -36,10 +39,11 @@ namespace AppSocket
             socket = new Socket(SocketType.Dgram, ProtocolType.Udp);//il DGram da l'imformazione sul tipo di messaggio e ProtocolType da l'informazione sul protocollo utilizzato
             //creato il socket stabilisco le due parti della conversazione:
             IPAddress local_address = IPAddress.Any;  //con questa istruzione ottengo l'ip address della mia macchina 
-            IPEndPoint local_endPoint = new IPEndPoint(local_address.MapToIPv4(), 33500);//il secondo valore è la porta, la mettiamo a mano e speriamo che il firewall non blocchi la porta
+            IPEndPoint local_endPoint = new IPEndPoint(local_address.MapToIPv4(), 1500);//il secondo valore è la porta, la mettiamo a mano e speriamo che il firewall non blocchi la porta
 
             socket.Bind(local_endPoint);//istruzione per collegare il mittente al socket appena creato
 
+            aggiornaRubrica();
 
             //istruzioni per creare il timer e gestirlo
             timer = new DispatcherTimer();//creo l'oggetto
@@ -85,12 +89,47 @@ namespace AppSocket
             }
             catch (Exception)
             {
-                MessageBox.Show("scrivi i dati Fess'e soreta");
+                MessageBox.Show("è necessario scrivere i dati per comunicare con un altro utente");
             }
 
 
         }
 
+        private void lst_rubrica_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach(Contatto a in Rubrica)
+            {
+                if (a.Nome == lst_rubrica.SelectedItem.ToString())
+                {
+                    txt_nome.Text = a.Nome;
+                    IndirizzoIP_txt.Text = a.IndirizzoIp.ToString();
+                    porta_txt.Text = a.Porta.ToString();
+                    break;
+                }
+            }
+        }
 
+        private void aggiornaRubrica()
+        {
+            lst_rubrica.Items.Clear();
+            foreach(Contatto a in Rubrica)
+            {
+                lst_rubrica.Items.Add(a.Nome);
+            }
+        }
+
+        private void btn_addToRubrica_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Contatto newContatto = new Contatto(txt_nome.Text, IndirizzoIP_txt.Text, Convert.ToInt32(porta_txt.Text));
+                Rubrica.Add(newContatto);
+                aggiornaRubrica();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

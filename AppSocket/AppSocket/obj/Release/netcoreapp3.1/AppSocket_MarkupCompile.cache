@@ -1,18 +1,18 @@
 ﻿AppSocket
-1.0.0.0
+
 
 winexe
 C#
 .cs
-C:\Users\utente\Desktop\AppSocket1\AppSocket\AppSocket\obj\Debug\netcoreapp3.1\
+C:\Users\utente\Desktop\AppSocket1\AppSocket\AppSocket\obj\Release\netcoreapp3.1\
 AppSocket
 none
 false
-TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
+TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1;
 C:\Users\utente\Desktop\AppSocket1\AppSocket\AppSocket\App.xaml
 11407045341
 
-61571019476
+4-1086191485
 192-1533232326
 MainWindow.xaml;
 
