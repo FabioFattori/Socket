@@ -1,0 +1,21 @@
+﻿<Window x:Class="AppSocket.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AppSocket"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="btn_invia" Content="Invia" HorizontalAlignment="Left" Height="36" Margin="330,355,0,0" VerticalAlignment="Top" Width="70" Click="btn_invia_Click"/>
+        <ListBox x:Name="Chat_lst" HorizontalAlignment="Left" Height="311" Margin="75,80,0,0" VerticalAlignment="Top" Width="228"/>
+        <Label Content="InserireMessaggio" HorizontalAlignment="Left" Height="29" Margin="330,242,0,0" VerticalAlignment="Top" Width="126"/>
+        <Label Content="inserire indirizzo IP" HorizontalAlignment="Left" Height="29" Margin="330,80,0,0" VerticalAlignment="Top" Width="126"/>
+        <Label Content="Inserire porta&#xA;" HorizontalAlignment="Left" Height="34" Margin="330,164,0,0" VerticalAlignment="Top" Width="151"/>
+        <TextBox x:Name="IndirizzoIP_txt" HorizontalAlignment="Left" Height="24" Margin="330,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126"/>
+        <TextBox x:Name="Messaggio_txt" HorizontalAlignment="Left" Height="74" Margin="330,276,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
+        <TextBox x:Name="porta_txt" HorizontalAlignment="Left" Height="24" Margin="330,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126"/>
+        <Label Content="CHAT" HorizontalAlignment="Left" Height="30" Margin="169,50,0,0" VerticalAlignment="Top" Width="40"/>
+
+    </Grid>
+</Window>
