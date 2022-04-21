@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.Net.Sockets;
 using System.Net;
 using System.Windows.Threading;
+using System.IO;
 
 namespace AppSocket
 {
@@ -43,8 +44,9 @@ namespace AppSocket
             btn_invia.IsEnabled = false;
             btn_addToRubrica.IsEnabled = false;
             lst_rubrica.IsEnabled = false;
+            btn_deleteContatto.IsEnabled = false;
 
-
+            LetturaFile();
 
             cmb_tipeOfComunication.Items.Add("UNICAST");
             //cmb_tipeOfComunication.Items.Add("MULTICAST");
@@ -64,7 +66,30 @@ namespace AppSocket
             timer.Start();//avvia il timer
         }
 
+        private void LetturaFile()
+        {
+            using (StreamReader sr=new StreamReader("Rubrica.txt"))
+            {
+                while (sr.Peek() != -1)
+                {
+                    string row = sr.ReadLine();
+                    string[] dataOfRow = row.Split('|');
+                    Contatto New = new Contatto(dataOfRow[0], dataOfRow[1], Convert.ToInt32(dataOfRow[2]));
+                    Rubrica.Add(New);
+                }
+            }
+        }
 
+        private void UpdateFile()
+        {
+            using (StreamWriter sw = new StreamWriter("Rubrica.txt", false))
+            {
+                foreach(Contatto a in Rubrica)
+                {
+                    sw.WriteLine(a.Nome + "|" + a.IndirizzoIp.ToString() + "|" + Convert.ToInt32(a.Porta));
+                }
+            }
+        }
 
         private void aggiornamentoTimer(object sender, EventArgs e)
         {
@@ -100,6 +125,7 @@ namespace AppSocket
                 byte[] messaggio = Encoding.UTF8.GetBytes(Messaggio_txt.Text);//prendo il mio messaggio dalla grafica
 
                 socket.SendTo(messaggio, remote_endPoint);//istruzione per instradare il messaggio al destinatario
+                Messaggio_txt.Text = "";
             }
             catch (Exception)
             {
@@ -111,16 +137,22 @@ namespace AppSocket
 
         private void lst_rubrica_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            foreach(Contatto a in Rubrica)
+            
+            if(lst_rubrica.SelectedItem != null)
             {
-                if (a.Nome == lst_rubrica.SelectedItem.ToString())
+                foreach (Contatto a in Rubrica)
                 {
-                    txt_nome.Text = a.Nome;
-                    IndirizzoIP_txt.Text = a.IndirizzoIp.ToString();
-                    porta_txt.Text = a.Porta.ToString();
-                    break;
+                    if (a.Nome == lst_rubrica.SelectedItem.ToString())
+                    {
+                        txt_nome.Text = a.Nome;
+                        IndirizzoIP_txt.Text = a.IndirizzoIp.ToString();
+                        porta_txt.Text = a.Porta.ToString();
+                        break;
+                    }
                 }
             }
+            
+            btn_deleteContatto.IsEnabled = true;
         }
 
         private void aggiornaRubrica()
@@ -130,13 +162,15 @@ namespace AppSocket
             {
                 lst_rubrica.Items.Add(a.Nome);
             }
+
+            UpdateFile();
         }
 
         private bool ControlloSeContattoEsisteGiaInRubrica(Contatto contatto)
         {
             foreach(Contatto a in Rubrica)
             {
-                if (a.Nome == contatto.Nome && a.IndirizzoIp.ToString() == contatto.IndirizzoIp.ToString())
+                if (a.Nome == contatto.Nome || a.IndirizzoIp.ToString() == contatto.IndirizzoIp.ToString())
                 {
                     return true;
                 }
@@ -154,7 +188,7 @@ namespace AppSocket
                 {
                     MessageBox.Show("il contatto esiste già in rubrica");
                 }
-                else if(ControlloSeContattoEsisteGiaInRubrica(newContatto)==false)
+                else
                 {
                     Rubrica.Add(newContatto);
                     aggiornaRubrica();
@@ -182,6 +216,25 @@ namespace AppSocket
             //        socket.EnableBroadcast = true;
             //    }
             //    socket.Bind(local_endPoint);//istruzione per collegare il mittente al socket appena creato
+        }
+
+        private void btn_clearChat_Click(object sender, RoutedEventArgs e)
+        {
+            Chat_lst.Items.Clear();
+        }
+
+        private void btn_deleteContatto_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(Contatto a in Rubrica)
+            {
+                if (a.Nome == lst_rubrica.SelectedItem.ToString())
+                {
+                    Rubrica.Remove(a);
+                    break;
+                }
+            }
+            UpdateFile();
+            aggiornaRubrica();
         }
     }
 }

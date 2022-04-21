@@ -23,6 +23,8 @@
         <TextBox x:Name="txt_nome" HorizontalAlignment="Left" Height="24" Margin="504,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134"/>
         <ComboBox x:Name="cmb_tipeOfComunication" HorizontalAlignment="Left" Height="30" Margin="378,111,0,0" VerticalAlignment="Top" Width="222" SelectionChanged="cmb_tipeOfComunication_SelectionChanged"/>
         <Label Content="Tipo di comunicazione" HorizontalAlignment="Left" Height="28" Margin="418,65,0,0" VerticalAlignment="Top" Width="142"/>
+        <Button x:Name="btn_clearChat" Content="Ripulisci Cache Chat" HorizontalAlignment="Left" Height="34" Margin="75,415,0,0" VerticalAlignment="Top" Width="228" Click="btn_clearChat_Click"/>
+        <Button x:Name="btn_deleteContatto" Content="Elimina Contatto Selezionato" HorizontalAlignment="Left" Height="34" Margin="666,410,0,0" VerticalAlignment="Top" Width="287" Click="btn_deleteContatto_Click"/>
 
     </Grid>
 </Window>
