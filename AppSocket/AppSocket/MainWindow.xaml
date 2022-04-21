@@ -7,20 +7,22 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="557" Width="1009">
     <Grid>
-        <Button x:Name="btn_invia" Content="Invia" HorizontalAlignment="Left" Height="36" Margin="330,355,0,0" VerticalAlignment="Top" Width="70" Click="btn_invia_Click"/>
+        <Button x:Name="btn_invia" Content="Invia" HorizontalAlignment="Left" Height="27" Margin="338,479,0,0" VerticalAlignment="Top" Width="300" Click="btn_invia_Click"/>
         <ListBox x:Name="Chat_lst" HorizontalAlignment="Left" Height="311" Margin="75,80,0,0" VerticalAlignment="Top" Width="228"/>
-        <Label x:Name="lbl_mex" Content="InserireMessaggio" HorizontalAlignment="Left" Height="29" Margin="330,242,0,0" VerticalAlignment="Top" Width="126"/>
-        <Label x:Name="lbl_Ip" Content="inserire indirizzo IP" HorizontalAlignment="Left" Height="29" Margin="330,80,0,0" VerticalAlignment="Top" Width="126"/>
-        <Label x:Name="lbl_porta" Content="Inserire porta&#xA;" HorizontalAlignment="Left" Height="34" Margin="330,164,0,0" VerticalAlignment="Top" Width="151"/>
-        <TextBox x:Name="IndirizzoIP_txt" HorizontalAlignment="Left" Height="24" Margin="330,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126"/>
-        <TextBox x:Name="Messaggio_txt" HorizontalAlignment="Left" Height="74" Margin="330,276,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
-        <TextBox x:Name="porta_txt" HorizontalAlignment="Left" Height="24" Margin="330,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126"/>
+        <Label x:Name="lbl_mex" Content="Inserire Messaggio" HorizontalAlignment="Left" Height="29" Margin="426,366,0,0" VerticalAlignment="Top" Width="126"/>
+        <Label x:Name="lbl_Ip" Content="inserire indirizzo IP" HorizontalAlignment="Left" Height="29" Margin="338,204,0,0" VerticalAlignment="Top" Width="126"/>
+        <Label x:Name="lbl_porta" Content="Inserire porta&#xA;" HorizontalAlignment="Left" Height="29" Margin="338,288,0,0" VerticalAlignment="Top" Width="126"/>
+        <TextBox x:Name="IndirizzoIP_txt" HorizontalAlignment="Left" Height="24" Margin="338,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126"/>
+        <TextBox x:Name="Messaggio_txt" HorizontalAlignment="Left" Height="74" Margin="338,400,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
+        <TextBox x:Name="porta_txt" HorizontalAlignment="Left" Height="24" Margin="338,327,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="126"/>
         <Label Content="CHAT" HorizontalAlignment="Left" Height="30" Margin="169,50,0,0" VerticalAlignment="Top" Width="40"/>
-        <ListBox x:Name="lst_rubrica" HorizontalAlignment="Left" Height="311" Margin="680,80,0,0" VerticalAlignment="Top" Width="287" SelectionChanged="lst_rubrica_SelectionChanged"/>
-        <Label Content="Rubrica" HorizontalAlignment="Left" Height="30" Margin="798,50,0,0" VerticalAlignment="Top" Width="51"/>
-        <Button x:Name="btn_addToRubrica" Content="Aggiungi in Rubrica" HorizontalAlignment="Left" Height="24" Margin="496,203,0,0" VerticalAlignment="Top" Width="122" Click="btn_addToRubrica_Click"/>
-        <Label x:Name="lbl_nome" Content="Nome" HorizontalAlignment="Left" Height="29" Margin="496,80,0,0" VerticalAlignment="Top" Width="122"/>
-        <TextBox x:Name="txt_nome" HorizontalAlignment="Left" Height="24" Margin="496,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"/>
+        <ListBox x:Name="lst_rubrica" HorizontalAlignment="Left" Height="311" Margin="666,79,0,0" VerticalAlignment="Top" Width="287" SelectionChanged="lst_rubrica_SelectionChanged"/>
+        <Label Content="Rubrica" HorizontalAlignment="Left" Height="30" Margin="784,50,0,0" VerticalAlignment="Top" Width="51"/>
+        <Button x:Name="btn_addToRubrica" Content="Aggiungi in Rubrica" HorizontalAlignment="Left" Height="46" Margin="504,305,0,0" VerticalAlignment="Top" Width="134" Click="btn_addToRubrica_Click"/>
+        <Label x:Name="lbl_nome" Content="Nome" HorizontalAlignment="Left" Height="29" Margin="504,204,0,0" VerticalAlignment="Top" Width="122"/>
+        <TextBox x:Name="txt_nome" HorizontalAlignment="Left" Height="24" Margin="504,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134"/>
+        <ComboBox x:Name="cmb_tipeOfComunication" HorizontalAlignment="Left" Height="30" Margin="378,111,0,0" VerticalAlignment="Top" Width="222" SelectionChanged="cmb_tipeOfComunication_SelectionChanged"/>
+        <Label Content="Tipo di comunicazione" HorizontalAlignment="Left" Height="28" Margin="418,65,0,0" VerticalAlignment="Top" Width="142"/>
 
     </Grid>
 </Window>

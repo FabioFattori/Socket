@@ -26,8 +26,8 @@ namespace AppSocket
     {
         Socket socket = null;
         DispatcherTimer timer = null;
-        Contatto ContattoAttuale;
         List<Contatto> Rubrica = new List<Contatto>();
+        IPEndPoint local_endPoint;
 
         public MainWindow()
         {
@@ -36,10 +36,22 @@ namespace AppSocket
 
             InitializeComponent();
 
+            txt_nome.IsEnabled = false;
+            IndirizzoIP_txt.IsEnabled = false;
+            Messaggio_txt.IsEnabled = false;
+            porta_txt.IsEnabled = false;
+            btn_invia.IsEnabled = false;
+            btn_addToRubrica.IsEnabled = false;
+            lst_rubrica.IsEnabled = false;
+
+
+
+            cmb_tipeOfComunication.Items.Add("UNICAST");
+            //cmb_tipeOfComunication.Items.Add("MULTICAST");
             socket = new Socket(SocketType.Dgram, ProtocolType.Udp);//il DGram da l'imformazione sul tipo di messaggio e ProtocolType da l'informazione sul protocollo utilizzato
             //creato il socket stabilisco le due parti della conversazione:
             IPAddress local_address = IPAddress.Any;  //con questa istruzione ottengo l'ip address della mia macchina 
-            IPEndPoint local_endPoint = new IPEndPoint(local_address.MapToIPv4(), 1500);//il secondo valore è la porta, la mettiamo a mano e speriamo che il firewall non blocchi la porta
+            local_endPoint = new IPEndPoint(local_address.MapToIPv4(), 1500);//il secondo valore è la porta, la mettiamo a mano e speriamo che il firewall non blocchi la porta
 
             socket.Bind(local_endPoint);//istruzione per collegare il mittente al socket appena creato
 
@@ -51,6 +63,8 @@ namespace AppSocket
             timer.Interval = new TimeSpan(0, 0, 0, 0, 250);//ogni questo timespan avverrà il tick, quindi verrà eseguito il metodo aggiornamentoTimer
             timer.Start();//avvia il timer
         }
+
+
 
         private void aggiornamentoTimer(object sender, EventArgs e)
         {
@@ -118,18 +132,56 @@ namespace AppSocket
             }
         }
 
+        private bool ControlloSeContattoEsisteGiaInRubrica(Contatto contatto)
+        {
+            foreach(Contatto a in Rubrica)
+            {
+                if (a.Nome == contatto.Nome && a.IndirizzoIp.ToString() == contatto.IndirizzoIp.ToString())
+                {
+                    return true;
+                }
+                    
+            }
+            return false;
+        }
+
         private void btn_addToRubrica_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 Contatto newContatto = new Contatto(txt_nome.Text, IndirizzoIP_txt.Text, Convert.ToInt32(porta_txt.Text));
-                Rubrica.Add(newContatto);
-                aggiornaRubrica();
+                if (ControlloSeContattoEsisteGiaInRubrica(newContatto))
+                {
+                    MessageBox.Show("il contatto esiste già in rubrica");
+                }
+                else if(ControlloSeContattoEsisteGiaInRubrica(newContatto)==false)
+                {
+                    Rubrica.Add(newContatto);
+                    aggiornaRubrica();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void cmb_tipeOfComunication_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            txt_nome.IsEnabled = true;
+            IndirizzoIP_txt.IsEnabled = true;
+            Messaggio_txt.IsEnabled = true;
+            porta_txt.IsEnabled = true;
+            btn_invia.IsEnabled = true;
+            btn_addToRubrica.IsEnabled = true;
+            lst_rubrica.IsEnabled = true;
+            //    socket = new Socket(SocketType.Dgram, ProtocolType.Udp);//il DGram da l'imformazione sul tipo di messaggio e ProtocolType da l'informazione sul protocollo utilizzato
+
+            //    if (cmb_tipeOfComunication.SelectedIndex == 1)
+            //    {
+            //        socket.EnableBroadcast = true;
+            //    }
+            //    socket.Bind(local_endPoint);//istruzione per collegare il mittente al socket appena creato
         }
     }
 }
